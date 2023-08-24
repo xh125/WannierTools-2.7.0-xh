@@ -2784,6 +2784,7 @@ subroutine generate_ek_kpath_gnu(datafilename, gnufilename, gnuoutfilename, &
     !> write script for gnuplot
    outfileindex= outfileindex+ 1
    if (cpuid==0) then
+   
       open(unit=outfileindex, file=gnufilename)
       write(outfileindex, '(a)') 'set terminal pdf enhanced color font ",24"'
       write(outfileindex,'(2a)') 'set palette defined ( 0  "green", ', &
@@ -2834,6 +2835,8 @@ subroutine generate_ek_kpath_gnu(datafilename, gnufilename, gnuoutfilename, &
       write(outfileindex, '(2a)')"     'bulkek.dat' u 1:2:($3/6):($4/6) ",  &
          "w vec"
       close(outfileindex)
+      
+      call execute_command_line ( 'gnuplot -persist '// trim(adjustl(gnufilename)) ) ! Now plot the results
    endif
 
 202 format('set xtics (',20('"',A3,'" ',F10.5,','))

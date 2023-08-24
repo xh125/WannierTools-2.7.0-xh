@@ -400,7 +400,9 @@
       real(dp) :: g, phi1, phi2, phi3, zm
       real(dp) :: zm1, xnm1, Deltam, dis
       real(dp), allocatable :: xnm(:)
-
+      integer :: nsob
+      
+      nsob = NumberofSelectedOccupiedBands
       allocate(xnm(NumberofSelectedOccupiedBands))
       allocate(wcc_one_k(NumberofSelectedOccupiedBands))
       allocate(wcc_gap(NumberofSelectedOccupiedBands))
@@ -415,7 +417,8 @@
       allocate(largestgap_pos_val_arr(Nk2_max))
       allocate(largestgap_pos_val_arr_mpi(Nk2_max))
      
-    
+      wcc_gap = 0.0
+      
       !> first we set an uniform mesh along kvec2
       allocate(kpoints(3, Nk2))
       kpoints= 0d0
@@ -470,7 +473,11 @@
                wcc_k(:, ik2)= kline_wcc(ik2)%wcc
                cycle ! < skip the calculated point
             endif
-            call Wcc_integrate_func(k2, kvec1, wcc_one_k, &
+            largestgap_val = 0.0
+            largestgap_pos_i = 0.0
+            largestgap_pos_val = 0.0
+                  
+            call Wcc_integrate_func(nsob,k2, kvec1, wcc_one_k, &
                wcc_gap, largestgap_val, largestgap_pos_i, largestgap_pos_val)
             largestgap_val_arr(ik2)= largestgap_val
             largestgap_pos_i_arr(ik2)= largestgap_pos_i
@@ -619,22 +626,23 @@
       return
    end subroutine  wannier_center3D_plane_adaptive_func
 
-
-   subroutine  Wcc_integrate_func(k2, kvec1, wcc, &
-         wcc_gap, largestgap_val, largestgap_pos_i, largestgap_pos_val)
+   subroutine  Wcc_integrate_func(nsob,k2, kvec1, wcc,wcc_gap, largestgap_val, largestgap_pos_i, largestgap_pos_val)
       !> this suboutine is used for wannier center calculation for 3D system
       !> only for one plane
 
-      use sparse
-      use para
-      use wcc_module
-      use wmpi
+      use sparse,only : arpack_sparse_coo_eigs
+      use para,only : nk2_max, wcc_calc_tol, Is_Sparse, OmegaNum, E_arc,splen,Origin_cell, &
+                      eps6, Selected_Occupiedband_index, zi, pi, stdout
+      use wcc_module,only : num_wann, numberofselectedoccupiedbands, kline_integrate_type
+      use wmpi,only : cpuid
+      use prec,only : dp
       implicit none
-
+      
+      integer,intent(in) :: nsob
       real(dp), intent(in) :: kvec1(3)  ! the integration direction
       real(dp), intent(in) :: k2(3)
-      real(dp), intent(out) :: wcc(NumberofSelectedOccupiedBands)
-      real(dp), intent(out) :: wcc_gap(NumberofSelectedOccupiedBands)
+      real(dp), intent(inout) :: wcc(nsob)
+      real(dp), intent(inout) :: wcc_gap(nsob)
       real(dp), intent(out) :: largestgap_val
       real(dp), intent(out) :: largestgap_pos_i
       real(dp), intent(out) :: largestgap_pos_val
@@ -704,9 +712,19 @@
       real(dp) :: k(3), b(3)
 
       real(dp) :: maxgap, maxgap0, maxgap_new, maxgap_old
-
-      type(kline_integrate_type) :: kline_integrate(Nk2_max)
-
+      integer :: istat
+      character(len=256) :: err_msg
+      
+      !type(kline_integrate_type) :: kline_integrate(Nk2_max)
+      !type(kline_integrate_type) :: kline_integrate(200)
+      type(kline_integrate_type),allocatable :: kline_integrate(:)
+      
+      allocate(kline_integrate(Nk2_max),stat=istat,errmsg=err_msg)
+      if(istat /= 0) then
+        write(stdout,*) "Error! Can't allocate kline_integrate :"//trim(err_msg)
+      endif 
+      
+      
       wcc_tol= wcc_calc_tol
 
       allocate(Lambda_eig(NumberofSelectedOccupiedBands))
