@@ -2766,6 +2766,7 @@ subroutine generate_ek_kpath_gnu(datafilename, gnufilename, gnuoutfilename, &
                                  emin, emax, num_k, nklines, &
                                  kname, k_stop, klen)
    use para
+   !use wt_encironment,only : gnuplotname
    implicit none
 
    character(*), intent(in) :: gnufilename, datafilename, gnuoutfilename

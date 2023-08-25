@@ -26,7 +26,7 @@ module wt_environment
     integer, parameter, public :: OS_OPENBSD = 7
     
     !! exe name
-    character(len=128) :: gnuplotname="gnuplot"
+    character(len=128),public :: gnuplotname = "gnuplot"
     
 contains
     !> Determine the OS type

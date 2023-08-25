@@ -34,6 +34,7 @@
 
      use wmpi
      use para
+     use wt_environment,only : OS_SYSTEM,OS_WINDOWS,get_os_type, gnuplotname
      implicit none
 
      !> file existence
@@ -44,7 +45,10 @@
      !> time measure
      real(Dp) :: time_start, time_end, time_init
 
-
+     !> The OS_system of WannierTools running
+     OS_SYSTEM = get_os_type()
+     if( OS_SYSTEM == OS_WINDOWS) gnuplotname = trim(gnuplotname)//".exe"
+     
      !> version of WannierTools
      version='2.7.0'
 

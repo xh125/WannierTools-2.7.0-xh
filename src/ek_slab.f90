@@ -226,6 +226,7 @@
         !write(outfileindex, '(2a)')"splot 'slabek.dat' u 1:2:3 ",  &
         !   "w lp lw 2 pt 13 palette"
         close(outfileindex)
+        call execute_command_line('gnuplot -persist slabek.gnu')
      endif
 
      202 format('set xtics (',:20('"',A3,'" ',F10.5,','))
@@ -520,6 +521,7 @@ subroutine ek_slab_sparseHR
       !write(outfileindex, '(2a)')"splot 'slabek.dat' u 1:2:3 ",  &
       !   "w lp lw 2 pt 13 palette"
       close(outfileindex)
+      call execute_command_line('gnuplot -persist slabek.gnu')
    endif
 
    202 format('set xtics (',:20('"',A3,'" ',F10.5,','))

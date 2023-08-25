@@ -176,7 +176,7 @@
          write(outfileindex,'(a)')' set encoding iso_8859_1 '
          write(outfileindex,'(a)')' set terminal  postscript enhanced color font ",18"'
          write(outfileindex,'(a)')' set output "wanniercenter3D_Z2.eps"'
-         write(outfileindex,'(a)')' set size 0.6,1.0'
+         write(outfileindex,'(a)')' set size 1.0,1.0'
          write(outfileindex,'(a)')' set multiplot '
          write(outfileindex,'(a)')' unset key '
          write(outfileindex,'(a)')' set border lw 1 '
@@ -248,6 +248,8 @@
          write(outfileindex,'(a)')' plot "wanniercenter3D_Z2_6.dat" u 1:2 w p  pt 7  ps 0.6 lc @LCOLOR'
  
          close(outfileindex)
+         call execute_command_line ('gnuplot -persist wanniercenter3D_Z2.gnu')
+         
       endif
 
 

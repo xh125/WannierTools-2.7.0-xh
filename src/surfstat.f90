@@ -374,7 +374,7 @@
  
 
         close(outfileindex)
-
+        call execute_command_line('gnuplot -persist surfdos_l.gnu')
      endif
 
      outfileindex= outfileindex+ 1
@@ -420,7 +420,9 @@
         write(outfileindex, '(a)')'set pm3d interpolate 2,2'
         write(outfileindex, '(2a)')"splot 'dos.dat_l' u 1:2:(exp($4)) w pm3d"
         CLOSE(outfileindex)
-
+        call execute_command_line ('gnuplot -persist surfdos_l_only.gnu')! Now plot the results
+        
+        
      endif
 
      !> write script for gnuplot
@@ -468,7 +470,8 @@
         write(outfileindex, '(a)')'set pm3d interpolate 2,2'
         write(outfileindex, '(2a)')"splot 'dos.dat_r' u 1:2:(exp($4)) w pm3d"
         CLOSE(outfileindex)
-
+        call execute_command_line ('gnuplot -persist surfdos_r_only.gnu')! Now plot the results
+        
      endif
 
 
@@ -527,7 +530,8 @@
         write(outfileindex, '(a)')"set title 'sz'"
         write(outfileindex, '(2a)')"splot 'spindos.dat_r' u 1:2:5 w pm3d"
         close(outfileindex)
-
+        call execute_command_line('gnuplot -persist surfdos_r.gnu')
+        
      endif
 
      !> write script for gnuplot
@@ -574,7 +578,8 @@
         write(outfileindex, '(a)')'set pm3d interpolate 2,2'
         write(outfileindex, '(2a)')"splot 'dos.dat_bulk' u 1:2:(exp($3)) w pm3d"
         CLOSE(outfileindex)
-
+        call execute_command_line ('gnuplot -persist surfdos_bulk.gnu')! Now plot the results
+        
      endif
 
      202 format('set xtics (',:20('"',A1,'" ',F8.5,','))

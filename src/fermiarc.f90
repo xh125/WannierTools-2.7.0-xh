@@ -811,6 +811,7 @@
         write(outfileindex, '(2a)')"splot 'arc.dat_l' u 1:2:3 w pm3d"
 
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist arc_l.gnu')
      endif
 
      !> write script for gnuplot
@@ -846,6 +847,7 @@
         write(outfileindex, '(2a)')"splot 'arc.dat_r' u 1:2:3 w pm3d"
 
         close(outfileindex)
+        call execute_command_line('gnuplot -persist arc_r.gnu')
      endif
 
      !> write script for gnuplot for bulk green's function
@@ -916,6 +918,7 @@
         write(outfileindex, '(a)')"     'spindos.dat_r' u 1:2:(0):($3/5.00):($4/5.00):(0)  w vec  head lw 5 lc rgb 'orange' front"
   
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist spintext_r.gnu')
      endif
    
      !> generate gnuplot scripts for plotting the spin texture
@@ -951,6 +954,7 @@
         write(outfileindex, '(a)')"     'spindos.dat_l' u 1:2:(0):($3/5.00):($4/5.00):(0)  w vec  head lw 5 lc rgb 'orange' front"
   
         close(outfileindex)
+        call execute_command_line('gnuplot -persist spintext_l.gnu')
      endif
      endif !> SlabSpintexture_calc or SlabQPI_kplane_calc
    
