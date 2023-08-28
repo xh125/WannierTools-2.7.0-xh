@@ -114,6 +114,7 @@
         write(outfileindex, '(5a)')"'",  trim(adjustl(ahcfilename)), "' u 1:3 w l title '\sigma_{zx}' lc rgb 'blue' lw 4, \"
         write(outfileindex, '(5a)')"'", trim(adjustl(ahcfilename)), "' u 1:4 w l title '\sigma_{xz}' lc rgb 'orange' lw 4 "
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist sigma_ahc.gnu')
      endif
 
      deallocate(energy, sigma_tensor_ahc)

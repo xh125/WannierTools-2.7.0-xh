@@ -312,6 +312,7 @@ subroutine landau_level_k
             "w p pt 7  ps 2"
       endif
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist landaulevel_k.gnu')
    endif
 
 
@@ -849,6 +850,7 @@ subroutine landau_level_B
             " w p  pt 7  ps 1"
       endif
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist landaulevel_B.gnu')
    endif
 
 #if defined (MPI)
@@ -1127,6 +1129,7 @@ subroutine landau_sf
             " w p  pt 7  ps 1"
       endif
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist landaulevel_k.gnu')
    endif
 
 

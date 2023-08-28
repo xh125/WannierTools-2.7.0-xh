@@ -1306,6 +1306,7 @@
 
 
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//"Berrycurvature.gnu")
      endif
 
      !> generate gnuplot script to plot the Berry curvature
@@ -1353,6 +1354,7 @@
         write(outfileindex, '(a)')"set colorbox"
         write(outfileindex, '(a)')"splot 'Orbitalmagnetization.dat' u 4:5:9 w pm3d"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//'Orbitalmagnetization.gnu')
      endif
 
 
@@ -1403,6 +1405,7 @@
         write(outfileindex, '(a)')"set title '({/Symbol W}_x, {/Symbol W}_y)'"
         write(outfileindex, '(a)')"plot 'Berrycurvature-normalized.dat' u 4:5:($7/10):($8/10) w vec"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//'Berrycurvature-normalized.gnu')
      endif
 
 
@@ -1686,6 +1689,7 @@
         write(outfileindex, '(a)')"set colorbox"
         write(outfileindex, '(a)')"splot 'Berrycurvature_Orbitalmagnetization.dat' u 1:2:6 w pm3d"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//"Berrycurvature.gnu")
      endif
 
 
@@ -1899,6 +1903,7 @@
         write(outfileindex, '(a)')"set colorbox"
         write(outfileindex, '(a)')"splot 'Berrycurvature_Orbitalmagnetization.dat' u 1:2:6 w pm3d"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//"Berrycurvature.gnu")
      endif
 
 
@@ -2102,6 +2107,7 @@
         write(outfileindex, '(a)')"set colorbox"
         write(outfileindex, '(a)')"splot 'Berrycurvature.dat' u 1:2:6 w pm3d"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//"Berrycurvature.gnu")
      endif
 
      !> generate gnuplot script to plot the Berry curvature
@@ -2128,6 +2134,7 @@
         write(outfileindex, '(a)')"set title '({/Symbol W}_x, {/Symbol W}_y) real'"
         write(outfileindex, '(a)')"plot 'Berrycurvature-normalized.dat' u 1:2:($4/500):($5/500) w vec"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist '//"Berrycurvature-normalized.gnu")
      endif
 
 #if defined (MPI)

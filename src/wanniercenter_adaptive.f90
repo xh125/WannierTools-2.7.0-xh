@@ -336,6 +336,7 @@
          write(outfileindex, '(a)')"plot 'wcc.dat' u 1:2 w l lw 2  lc 'blue', \"   
          write(outfileindex, '(a, i5, a)')" for [i=4: ", NumberofSelectedOccupiedBands+3, "] 'wcc.dat' u 1:i w p  pt 7  ps 1.1 lc 'red'"
          close(outfileindex)
+         call execute_command_line ('gnuplot -persist wcc.gnu')
       endif
 
       return

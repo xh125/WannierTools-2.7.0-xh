@@ -134,7 +134,7 @@
          write(outfileindex, '(a, f10.5, a, f10.5, a)')'set zrange [', -0.5, ':', 0.5, ']'
          write(outfileindex, '(2a)')"splot 'Nodes.dat' u 6:7:8 w p pt 7 ps 2"
          close(outfileindex)
-     
+         call execute_command_line ('gnuplot -persist Nodes.gnu')
       endif
       
 #if defined (MPI)

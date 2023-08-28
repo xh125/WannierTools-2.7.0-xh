@@ -730,6 +730,7 @@
            write(outfileindex, '(2a)')"splot 'bulkspintext.dat' u 4:5:(log($8+0.1)) w pm3d, \"
            write(outfileindex, '(a)')"    'bulkspintext.dat' u 4:5:(0):($9/5.00):($10/5.00):(0)  w vec  head lw 5 lc rgb 'orange' front"
            close(outfileindex)
+           call execute_command_line ('gnuplot -persist bulkspintext.gnu')
        
         else
            open(unit=outfileindex, file='fs_kplane.gnu')
@@ -758,6 +759,7 @@
            write(outfileindex, '(2a)')"splot 'fs_kplane.dat' u 4:5:(log($7+0.1)) w pm3d"
        
            close(outfileindex)
+           call execute_command_line ('gnuplot -persist fs_kplane.gnu')
         endif
      endif
 
@@ -1329,7 +1331,7 @@ subroutine fermisurface_stack
          write(outfileindex, '(a)')"set output 'GapPlane.png'"
          write(outfileindex,'(a, f10.4, a, f10.4, a, f10.4, a)') &
             'set palette defined ( ', zmin, ' "black", ', &
-            (zmin+zmax)/20d0,' "orange", ',zmax,'  "white" )'
+            (zmin+zmax)/2.0d0,' "orange", ',zmax,'  "white" )'
          write(outfileindex, '(a)')"set origin 0.10, 0.0"
          write(outfileindex, '(a)')"set size 0.85, 1.0"
          write(outfileindex, '(a)')'unset ztics'
@@ -1350,6 +1352,7 @@ subroutine fermisurface_stack
          write(outfileindex, '(2a)')"splot 'GapPlane.dat' u 4:5:7 w pm3d"
      
          close(outfileindex)
+         call execute_command_line('gnuplot -persist GapPlane.gnu')
       endif
       
       return
@@ -1596,7 +1599,7 @@ subroutine fermisurface_stack
    
       !> transform from Kelvin to eV
       !> The SI unit of temperature is the kelvin (K), but using the above relation the electron temperature is often expressed in
-      !> terms of the energy unit electronvolt (eV). Each kelvin (1 K) corresponds to 8.6173324(78)×10−5 eV; this factor is the ratio
+      !> terms of the energy unit electronvolt (eV). Each kelvin (1 K) corresponds to 8.6173324(78)×10� eV; this factor is the ratio
       !> of the Boltzmann constant to the elementary charge. After version 2.6, we 
       !> adopt the atomic unit
       KBT_array= KBT_array*8.6173324E-5*eV2Hartree

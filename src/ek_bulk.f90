@@ -558,6 +558,7 @@ subroutine ek_bulk_plane_C2yT
       write(outfileindex, '(2a)')"      'bulkek_plane.dat' u 4:5:9 w pm3d"
 
       close(outfileindex)
+      call execute_command_line('gnuplot -persist bulkek_plane.gnu')
 
    endif ! cpuid
 
@@ -764,7 +765,7 @@ subroutine ek_bulk_plane
       write(outfileindex, '(2a)')"      'bulkek_plane.dat' u 4:5:9 w pm3d"
 
       close(outfileindex)
-
+      call execute_command_line('gnuplot -persist bulkek_plane.gnu')
    endif ! cpuid
 
    deallocate(W)
@@ -1322,7 +1323,8 @@ subroutine sparse_ekbulk_plane
       write(outfileindex, '(2a)')"      'bulkek_plane.dat' u 4:5:9 w pm3d"
 
       close(outfileindex)
-
+      call execute_command_line('gnuplot -persist bulkek_plane.gnu')
+      
    endif ! cpuid
 
 

@@ -418,6 +418,7 @@ subroutine  wannier_center3D_plane_mirror
       write(outfileindex, '(a, i5, a)')"# for [i=3: ", NumberofSelectedOccupiedBands/2+2, &
          "]  'wcc-mirrorminus.dat' u 1:i w p  pt 7  ps 1.1 lc 'blue'"
       close(outfileindex)
+      
    endif
 
    wcc_sum= dmod(sum(WannierCenterKy_plus_mpi, dim=1), 1d0)
@@ -686,6 +687,7 @@ subroutine  wannier_center2D
       write(outfileindex,*) 'set yrange [-0.0:1.0]'
       write(outfileindex, '(a, i5, a)')"plot for [i=3: ", nfill+2, "] 'wcc_slab.dat' u 1:i w p  pt 7  ps 1.1 lc 'red'"
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist wcc_slab.gnu')
    endif
 
    return
@@ -2745,6 +2747,7 @@ subroutine  wannier_center3D_weyl
          write(outfileindex, '(a,i5,a)')"plot 'wanniercenter3D_Weyl.dat' u 1:",i+1, &
             " w p ps 1.5 pt 7 lc rgb '#696969'"
          close(outfileindex)
+         call execute_command_line ('gnuplot -persist '//trim(wccfilename))
       endif
    enddo
 
@@ -3274,6 +3277,7 @@ subroutine  Chern_3D
       write(outfileindex,'(a)')' plot "wanniercenter3D_Chern.dat" u 1:7 w p  pt 7  ps 0.6 lc @LCOLOR'
 
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist wanniercenter3D_Chern.gnu')
    endif
 
    if (cpuid==0) then

@@ -882,6 +882,7 @@
         write(outfileindex, '(a)')'set pm3d interpolate 2,2'
         write(outfileindex, '(2a)')"splot 'arc.dat_bulk' u 1:2:3 w pm3d"
         close(outfileindex)
+        call execute_command_line ('gnuplot -persist arc_bulk.gnu')
      endif
 
      outfileindex= outfileindex+ 1

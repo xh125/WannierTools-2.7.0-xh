@@ -160,6 +160,7 @@
         write(outfileindex, '(2a)')"      'bulkek_plane.dat' u 4:5:9 w pm3d"
 
         close(outfileindex)
+        call execute_command_line('gnuplot -persist bulkek_plane.gnu')  
 
      endif ! cpuid
 

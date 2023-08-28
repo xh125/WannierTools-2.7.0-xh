@@ -1226,6 +1226,7 @@ subroutine sparse_landau_level_k
             " w p  pt 7  ps 1"
       endif
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist landaulevel_k.gnu')
    endif
 
 
@@ -1768,6 +1769,7 @@ subroutine sparse_export_maghr
             " w p  pt 7  ps 1"
       endif
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist landaulevel_k.gnu')
    endif
 
 

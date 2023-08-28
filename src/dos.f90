@@ -172,6 +172,7 @@ subroutine dos_sparse
       write(outfileindex, '(a, f6.1, a)')" '' u 1:10 w l lw 2 title '",&
          Eta_array(NumberofEta)*1000/eV2Hartree, "meV'"
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist dos.gnu')
    endif
 201 format(a, i3, a, f6.1, a)
 
@@ -524,6 +525,7 @@ subroutine dos_sub
       write(outfileindex, '(a, f6.1, a)')" '' u 1:10 w l lw 2 title '",&
          Eta_array(NumberofEta)*1000/eV2Hartree, "meV'"
       close(outfileindex)
+      call execute_command_line ('gnuplot -persist dos.gnu')
    endif
 202 format(a, i3, a, f6.1, a)
 
