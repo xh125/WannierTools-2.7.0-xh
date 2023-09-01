@@ -1147,7 +1147,7 @@ subroutine fermisurface_stack
          write(outfileindex, '(a, f10.5, a, f10.5, a)')'set zrange [', kzmin_shape*Angstrom2atomic, ':', kzmax_shape*Angstrom2atomic, ']'
          write(outfileindex, '(2a)')"splot 'GapCube.dat' u 1:2:3 w p pt 7 ps 2"
          close(outfileindex)
-     
+         call execute_command_line('gnuplot -persist GapCube.gnu')
       endif
       
       

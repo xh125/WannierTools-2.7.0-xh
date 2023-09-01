@@ -14,7 +14,7 @@ subroutine readNormalHmnR()
 
    implicit none
 
-   character*4 :: c_temp
+   character(len=4) :: c_temp
 
    integer :: i, j, ir, ia, io 
    integer :: i1, i2, i3, i4, i5
